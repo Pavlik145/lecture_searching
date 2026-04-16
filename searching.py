@@ -1,6 +1,9 @@
 import os
 import json
+import time
+from generators import *
 from operator import index
+import matplotlib.pyplot as plt
 
 # get current working directory path
 cwd_path = os.getcwd()
@@ -39,8 +42,8 @@ def binary_search(sekvence,hodnota):
 
         left = 0
         right = int(len(sekvence) - 1)
-        while True:
-            middle = int(len(sekvence[left:right]) / 2)
+        while left <= right:
+            middle = int((left + right) / 2)
             if sekvence[middle] == hodnota:
                 return middle
             elif sekvence[middle] < hodnota:
@@ -59,6 +62,35 @@ if __name__ == '__main__':
     my_data = read_data(json_filename, "unordered_numbers")
     my_data_ordered = read_data(json_filename, "ordered_numbers")
     print(my_data)
-    print(linear_search(my_data,0))
-    print(binary_search(my_data_ordered,2))
+
+    print(linear_search(my_data, 0))
+    print(binary_search(my_data_ordered, 2))
+
+    seq1 = unordered_sequence(500)
+    seq2 = unordered_sequence(1000)
+    seq3 = ordered_sequence(1000)
+
+    start1 = time.perf_counter()
+    linear_search(seq1,0)
+    end1 = time.perf_counter()
+    duration1 = end1 - start1
+    print(f"Měření trvalo {duration1:.8f} s")
+
+    start2 = time.perf_counter()
+    binary_search(seq3,2)
+    end2 = time.perf_counter()
+    duration2 = end2 - start2
+    print(f"Měření trvalo {duration2:.8f} s")
+
+    sizes = [500, 1000]
+    times = [duration1,duration2]
+
+    plt.plot(sizes, times)
+
+    plt.xlabel("Velikost vstupu")
+    plt.ylabel("Čas [s]")
+    plt.title("Ukázkový graf měření")
+    plt.show()
+
+
 
