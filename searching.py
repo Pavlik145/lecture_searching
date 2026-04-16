@@ -21,13 +21,26 @@ def read_data(file_name, field):
         print(f"Field {field} not exist")
         return None
 
+def linear_search(sekvence, hodnota):
+    slovnik = {}
+    pozice = []
+    pocet = 0
+    for i in range(len(sekvence)-1):
+        if sekvence[i] == hodnota:
+            pocet += 1
+            pozice.append(i)
+    slovnik["positions"] = pozice
+    slovnik["count"] = pocet
+
+    return slovnik
 
 def main():
     pass
-
 
 if __name__ == '__main__':
     main()
     json_filename = "sequential.json"
     my_data = read_data(json_filename, "unordered_numbers")
     print(my_data)
+
+    print(linear_search(my_data,0))
