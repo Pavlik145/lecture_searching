@@ -1,5 +1,6 @@
 import os
 import json
+from operator import index
 
 # get current working directory path
 cwd_path = os.getcwd()
@@ -34,6 +35,21 @@ def linear_search(sekvence, hodnota):
 
     return slovnik
 
+def binary_search(sekvence,hodnota):
+
+        left = 0
+        right = int(len(sekvence) - 1)
+        while True:
+            middle = int(len(sekvence[left:right]) / 2)
+            if sekvence[middle] == hodnota:
+                return middle
+            elif sekvence[middle] < hodnota:
+                left = middle + 1
+            elif sekvence[middle] > hodnota:
+                right = middle - 1
+            else:
+                return None
+
 def main():
     pass
 
@@ -41,6 +57,8 @@ if __name__ == '__main__':
     main()
     json_filename = "sequential.json"
     my_data = read_data(json_filename, "unordered_numbers")
+    my_data_ordered = read_data(json_filename, "ordered_numbers")
     print(my_data)
-
     print(linear_search(my_data,0))
+    print(binary_search(my_data_ordered,2))
+
